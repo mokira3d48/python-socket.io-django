@@ -49,7 +49,7 @@ django-admin startapp socketio_app
 On va placer les boûts de code qu'il faut dans certains fichiers de django.
 
 ### Configuration de l'URL
-- Dans le fichier `django_socketio/settings.py`, insérer la ligne suivante :
+1. Dans le fichier `django_socketio/settings.py`, insérer la ligne suivante :
 
 ```python
 # ...
@@ -64,7 +64,7 @@ que vous (`0.0.0.0`) et l'accès en localhost (`127.0.0.1`) au serveur de l'appl
 
 
 
-- Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
+2. Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
 
 ```python
 from django.conf.urls import url, include
@@ -84,7 +84,7 @@ urlpatterns = [
 ```
 
 
-- Dans le dossier `django_socketio/socketio_app/`, créez le fichier `urls.py` et insérer s'y
+3. Dans le dossier `django_socketio/socketio_app/`, créez le fichier `urls.py` et insérer s'y
 le code suivant :
 
 ```python
@@ -102,7 +102,7 @@ urlpatterns = [
 ### Configuration du serveur en socket.io
 On va maintenant mettre en place les fonctionnalités du serveur de socket.io.
 
-- Dans le fichier `django_socketio/socketio_app/views.py` insérer les lignes de code suivantes :
+1. Dans le fichier `django_socketio/socketio_app/views.py` insérer les lignes de code suivantes :
 
 ```python
 import socketio
@@ -116,7 +116,67 @@ sio = socketio.Server(async_mode=async_mode);
 
 ```
 
-![OK](https://www.botreetechnologies.com/blog/wp-content/uploads/2020/12/deployment-strategy.jpg)
+![Stratégie de déploiement](https://www.botreetechnologies.com/blog/wp-content/uploads/2020/12/deployment-strategy.jpg)
+
+- Le déploiement est délicat, car les sockets ne sont pas basés sur le protocole HTTP. Le serveur d'applications alloue généralement un processus ou un fil distinct pour chaque demande. Par conséquent, nous devons utiliser `Gevent`, qui agit comme une boucle d'événements et chaque fois qu'il y a une demande de connexion, il génère un nouveau thread et attribue la connexion à ce thread.
+
+- Nous avons décidé de séparer l'application socket de l'application normale, car la prise en charge à la fois de la fonction Django normale et de l'application socket dans une seule `application Django` rendait la gestion des réponses aux requêtes lente.
+
+- Le déplacement du code socketio vers une autre application a également facilité la maintenance du code.
 
 
+2. Dans le dossier `django_socketio/socketio_app/`, créez le dossier `management`, dans ce dernier, créez le dossier `commands`, ensuite, dans le dossier `commands`, créer le fichier `runserver.py`. Dans ce dernier, insérez les lignes de codes suivantes :
+
+```python
+from django.core.management.commands.runserver import Command as RunCommand
+
+from socketio_app.views import sio
+
+
+class Command(RunCommand):
+    help = 'Run the Socket.IO server'
+
+    def handle(self, *args, **options):
+        if sio.async_mode == 'threading':
+            super(Command, self).handle(*args, **options)
+        
+        elif sio.async_mode == 'eventlet':
+            # deploy with eventlet
+            import eventlet
+            import eventlet.wsgi
+            from django_socketio.wsgi import application
+
+            eventlet.wsgi.server(eventlet.listen(('', 8000)), application);
+        
+        elif sio.async_mode == 'gevent':
+            # deploy with gevent
+            from gevent import pywsgi
+            from django_socketio.wsgi import application
+            
+            try:
+                from geventwebsocket.handler import WebSocketHandler
+
+                websocket = True;
+                print('Gevent config is done !\n');
+
+            except ImportError:
+                websocket = False;
+            
+            if websocket:
+                pywsgi.WSGIServer(('', 8000), application, handler_class=WebSocketHandler).serve_forever()
+
+            else:
+                pywsgi.WSGIServer(('', 8000), application).serve_forever();
+
+        elif sio.async_mode == 'gevent_uwsgi':
+            print('Start the application through the uwsgi server. Example:');
+            print('uwsgi --http :5000 --gevent 1000 --http-websockets '
+                  '--master --wsgi-file django_example/wsgi.py --callable '
+                  'application');
+
+        else:
+            print('Unknown async_mode: ' + sio.async_mode)
+
+
+```
 
