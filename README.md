@@ -1,6 +1,9 @@
 # python-socket.io-django
 Python socket.io example with Django framework
 
+<br/>
+<br/>
+
 ## Installation des modules
 Voici tous les modules dont on a besoin pour monter notre serveur socket.
 
@@ -31,6 +34,9 @@ Vous pouvez aussi les installer un a un afin d'avoir leur dernière version.
 pip install -r requirements.txt
 ```
 
+<br/>
+<br/>
+
 ## Creation d'un projet Django
 On va maintenant créer un projet Django nommé `django_socketio` par exemple.
 
@@ -45,8 +51,14 @@ la configuration du serveur de `socket.io`.
 django-admin startapp socketio_app
 ```
 
+<br/>
+<br/>
+
 ## Configuration du projet
 On va placer les boûts de code qu'il faut dans certains fichiers de django.
+
+<br/>
+<br/>
 
 ### Configuration de l'URL
 1. Dans le fichier `django_socketio/settings.py`, insérer la ligne suivante :
@@ -62,7 +74,7 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'];
 C'est pour permettre l'accès de tous les ordinateurs connectés sur le même réseau
 que vous (`0.0.0.0`) et l'accès en localhost (`127.0.0.1`) au serveur de l'application.
 
-
+<br/>
 
 2. Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
 
@@ -83,6 +95,7 @@ urlpatterns = [
 ]
 ```
 
+<br/>
 
 3. Dans le dossier `django_socketio/socketio_app/`, créez le fichier `urls.py` et insérer s'y
 le code suivant :
@@ -98,6 +111,8 @@ urlpatterns = [
 
 ```
 
+<br/>
+<br/>
 
 ### Configuration du serveur en socket.io
 On va maintenant mettre en place les fonctionnalités du serveur de socket.io.
@@ -116,7 +131,9 @@ sio = socketio.Server(async_mode=async_mode);
 
 ```
 
-![Stratégie de déploiement](https://www.botreetechnologies.com/blog/wp-content/uploads/2020/12/deployment-strategy.jpg)
+<br/>
+
+![Stratégie de déploiement](https://www.botreetechnologies.com/blog/wp-content/uploads/2020/12/deployment-strategy.jpg, "Stratégie de déploiement")
 
 - Le déploiement est délicat, car les sockets ne sont pas basés sur le protocole HTTP. Le serveur d'applications alloue généralement un processus ou un fil distinct pour chaque demande. Par conséquent, nous devons utiliser `Gevent`, qui agit comme une boucle d'événements et chaque fois qu'il y a une demande de connexion, il génère un nouveau thread et attribue la connexion à ce thread.
 
@@ -124,6 +141,9 @@ sio = socketio.Server(async_mode=async_mode);
 
 - Le déplacement du code socketio vers une autre application a également facilité la maintenance du code.
 
+Par [ici](https://www.botreetechnologies.com/blog/django-websocket-with-socketio/) pour en savoir plus.
+
+<br/>
 
 2. Dans le dossier `django_socketio/socketio_app/`, créez le dossier `management`, dans ce dernier, créez le dossier `commands`, ensuite, dans le dossier `commands`, créer le fichier `runserver.py`. Dans ce dernier, insérez les lignes de codes suivantes :
 
@@ -179,4 +199,25 @@ class Command(RunCommand):
 
 
 ```
+
+<br/>
+
+3. Remplacez les lignes de code du fichier `django_socketio/wsgi.py` par les suivantes :
+
+```python
+import os
+import socketio
+
+from django.core.wsgi import get_wsgi_application
+from socketio_app.views import sio
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_socketio.settings');
+
+django_app = get_wsgi_application();
+application = socketio.WSGIApp(sio, django_app);
+
+```
+
+<br/>
+<br/>
 
