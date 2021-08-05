@@ -27,7 +27,7 @@ class Command(RunCommand):
                 from geventwebsocket.handler import WebSocketHandler
 
                 websocket = True;
-                print('Gevent config is done !\n');
+                print('async_mode is set to `Gevent` !\n');
 
             except ImportError:
                 websocket = False;
