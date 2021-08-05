@@ -62,6 +62,8 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'];
 C'est pour permettre l'accès de tous les ordinateurs connectés sur le même réseau
 que vous (`0.0.0.0`) et l'accès en localhost (`127.0.0.1`) au serveur de l'application.
 
+
+
 - Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
 
 ```python
@@ -79,6 +81,21 @@ urlpatterns = [
     url(r'', include('socketio_app.urls')),
     path('admin/', admin.site.urls),
 ]
+```
+
+
+- Dans le dossier `django_socketio/socketio_app/`, créez le fichier `urls.py` et insérer s'y
+le code suivant :
+
+```python
+from django.conf.urls import url
+
+from . import views
+
+urlpatterns = [
+    url(r'', views.index, name='index'),
+];
+
 ```
 
 
