@@ -39,13 +39,47 @@ django-admin startproject django_socketio
 ```
 
 Il faut créer ensuite une application. C'est dans cette dernière qu'on va mettre en place
-le serveur de `socket.io`.
+la configuration du serveur de `socket.io`.
 
 ```
 django-admin startapp socketio_app
 ```
 
 ## Configuration du projet
+On va placer les boûts de code qu'il faut dans certains fichiers de django.
+
+### Configuration de l'URL
+- Dans le fichier `django_socketio/settings.py`, insérer la ligne suivante :
+
+```python
+# ...
+
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'];
+
+# ...
+```
+
+C'est pour permettre l'accès de tous les ordinateurs connectés sur le même réseau
+que vous (`0.0.0.0`) et l'accès en localhost (`127.0.0.1`) au serveur de l'application.
+
+- Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
+
+```python
+from django.conf.urls import url, include
+
+# ...
+```
+
+ensuite,
+
+```python
+# ...
+
+urlpatterns = [
+    url(r'', include('socketio_app.urls')),
+    path('admin/', admin.site.urls),
+]
+```
 
 
 
