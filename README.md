@@ -2,7 +2,6 @@
 Python socket.io example with Django framework
 
 <br/>
-<br/>
 
 ## Installation des modules
 Voici tous les modules dont on a besoin pour monter notre serveur socket.
@@ -58,7 +57,6 @@ django-admin startapp socketio_app
 On va placer les boûts de code qu'il faut dans certains fichiers de django.
 
 <br/>
-<br/>
 
 ### Configuration de l'URL
 1. Dans le fichier `django_socketio/settings.py`, insérer la ligne suivante :
@@ -111,7 +109,6 @@ urlpatterns = [
 
 ```
 
-<br/>
 <br/>
 
 ### Configuration du serveur en socket.io
