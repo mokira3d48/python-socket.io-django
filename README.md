@@ -99,5 +99,24 @@ urlpatterns = [
 ```
 
 
+### Configuration du serveur en socket.io
+On va maintenant mettre en place les fonctionnalités du serveur de socket.io.
+
+- Dans le fichier `django_socketio/socketio_app/views.py` insérer les lignes de code suivantes :
+
+```python
+import socketio
+
+# mode d'asynchronisation
+async_mode = 'gevent';
+
+# definition du serveur de socket.io
+sio = socketio.Server(async_mode=async_mode);
+
+
+```
+
+![OK](https://www.botreetechnologies.com/blog/wp-content/uploads/2020/12/deployment-strategy.jpg)
+
 
 
