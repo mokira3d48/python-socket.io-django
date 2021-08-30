@@ -1,9 +1,99 @@
 # python-socket.io-django
-Python socket.io example with Django framework
 
-- French version is [here](https://github.com/mokira3d48/python-socket.io-django/tree/master/fr)
+[![Build Status][ico-actions]][link-actions]
+[![Software License][ico-license]](LICENSE.md)
+[![Total Downloads][ico-downloads]][link-downloads]
+
+Exemple de programme `python` de `socket.io` avec le framework `Django`.
 
 <br/>
+<br/>
+
+## Prérequis
+
+Vous devez installer `python version 3.8.10 ou plus` sur votre machine.
+Sous Ubuntu :
+
+```
+sudo apt install python3
+```
+Sous certaines distributions linux,
+```
+sudo apt install python
+```
+
+<br/>
+
+PS : Si vous verifiez la version et qu'elle n'est la bonne `3.8.10 ou plus`, alors cherchez comment installer ou mettre
+à jour ce qui a été installé.
+
+<br/>
+
+Ensuite, installer le gestionnaire de dépendance `pip3` pour python3.
+Sous Ubuntu :
+
+```
+sudo apt install python3-pip
+```
+
+
+<br/>
+<br/>
+
+
+## Version de python
+Exécutez la ligne de commande suivante pour vérifier votre version de `python`.
+```
+python --version
+```
+PS : Pour ceux qui sont sur certain système `Linux` notamment `Ubuntu`, exécuter plutôt la ligne de commande suivante :
+```
+python3 --version
+```
+ 
+Chez moi en ce moment, ma version de python est `3.8.10`.
+```
+Python 3.8.10
+```
+Je vous recommande d'avoir cette version ou une version supérieur à celle-ci.
+
+<br/>
+<br/>
+
+
+## Configuration d'un environnement virtuel
+
+Avant d'installer les modules, il faut créer un environnement virtuel. C'est dans ce dernier, qu'on va 
+installer les différents modules du serveur.
+
+<br/>
+<br/>
+
+### Installation de virtualenv
+
+On va utiliser `virtualenv` pour créer un environnement virtuel.
+
+```
+sudo pip3 install virtualenv
+```
+
+Ensuite, dans le dossier du projet, créer un environement virtuel en tapant la commande suivante :
+
+```
+python3 -m venv env
+```
+
+Enfin, on active l'environement virtuel
+
+```
+source env/bin/activate
+```
+
+Si tous va bien, on peut passer à l'installation des modules.
+
+<br/>
+
+
 
 ## Installation des modules
 Voici tous les modules dont on a besoin pour monter notre serveur socket.
@@ -46,8 +136,7 @@ On va maintenant créer un projet Django nommé `django_socketio` par exemple.
 django-admin startproject django_socketio
 ```
 
-Il faut créer ensuite une application. C'est dans cette dernière qu'on va mettre en place
-la configuration du serveur de `socket.io`.
+Il faut créer ensuite une application. C'est dans cette dernière qu'on va implémenter un exemple de programme de chat pour tester notre serveur de `socket.io`.
 
 ```
 django-admin startapp socketio_app
@@ -445,7 +534,7 @@ Quit the server with CONTROL-C.
 
 ## Test
 Voici le lien pour accéder à l'interface web : [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
-Pour que d'autre ordinateur puisse accéder à votre application, il faut qu'ils soient dans le même réseau que votre ordinateur. Ensuite, ils doivent utiliser votre adresse IP (souvent sous la forme `192.168.xxx.xxx`). Pour qu'on connaitre votre adresse IP :
+Pour que d'autre ordinateur puisse accéder à votre application, il faut qu'ils soient dans le même réseau que votre ordinateur. Ensuite, ils doivent utiliser votre adresse IP (souvent sous la forme `192.168.xxx.xxx`). Pour connaitre votre adresse IP :
 
 - sous linux :
 
@@ -458,5 +547,36 @@ sudo ifconfig
 ```
 ipconfig
 ```
+Ensuite rendez-vous dans le fichier `django_socketio/settings.py` pour permettre l'accès au serveur via cet adresse IP. Si par exemple mon adresse IP est `192.168.100.31`, alors vous devez modifier la ligne de code suivante dans le fichier `django_socketio/settings.py`
+
+```python
+# ...
+
+ALLOWED_HOSTS = ['192.168.100.31'];
+
+# La ligne ci-dessus permettra au autre ordinateur qui sont sur le même réseau que moi 
+# de pouvoir accéder à mon serveur socket.io via le lien http://192.168.100.31:8000/
+
+# ...
+```
+
+<br/>
+
+C'est finit !
+Merci de m'avoir suivi avec attention !
+
+<br/>
+<br/>
+
+## Système d'exploitation
+
+```
+Kernel: 5.8.0-59-generic x86_64 bits: 64 compiler: N/A Desktop: Gnome 3.36.9 
+Distro: Ubuntu 20.04.2 LTS (Focal Fossa)
+```
+
+
+
+
 
 
