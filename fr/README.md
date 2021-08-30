@@ -62,7 +62,6 @@ Avant d'installer les modules, il faut créer un environnement virtuel. C'est da
 installer les différents modules du serveur.
 
 <br/>
-<br/>
 
 ### Installation de virtualenv
 
@@ -78,6 +77,9 @@ Ensuite, dans le dossier du projet, créer un environement virtuel en tapant la 
 python3 -m venv env
 ```
 
+<br/>
+
+### Activation de l'environnement
 Enfin, on active l'environement virtuel
 
 ```
@@ -87,7 +89,7 @@ source env/bin/activate
 Si tous va bien, on peut passer à l'installation des modules.
 
 <br/>
-
+<br/>
 
 
 ## Installation des modules
@@ -240,7 +242,6 @@ server.serve_forever();
 ```
 
 <br/>
-<br/>
 
 ### Implémentation des exemples de fonctionnalités avec socket.io
 On va juste essayer d'implémenter un programme de chat. Remplacez donc tous le code contenu dans le fichier `django_socketio/socketio_app/views.py` par les lignes de code suivantes :
@@ -385,7 +386,6 @@ def disconnect(sid):
 
 ```
 
-<br/>
 <br/>
 
 ### Mise en place d'une interface WEB
@@ -555,10 +555,6 @@ ALLOWED_HOSTS = ['192.168.100.31'];
 # ...
 ```
 
-<br/>
-
-C'est finit !
-Merci de m'avoir suivi avec attention !
 
 <br/>
 <br/>
@@ -569,9 +565,5 @@ Merci de m'avoir suivi avec attention !
 Kernel: 5.8.0-59-generic x86_64 bits: 64 compiler: N/A Desktop: Gnome 3.36.9 
 Distro: Ubuntu 20.04.2 LTS (Focal Fossa)
 ```
-
-
-
-
 
 
