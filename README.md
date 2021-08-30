@@ -445,7 +445,14 @@ On peut maintenant démarrer le serveur avec la commande suivante :
 Si tout va bien, vous verrez le message suivant affichez dans votre terminal.
 
 ```
-async_mode is set to `Gevent` !
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+August 30, 2021 - 01:55:05
+Django version 3.2.6, using settings 'django_socketio.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 ```
 
 <br/>
