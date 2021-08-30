@@ -2,7 +2,7 @@
 Exemple de programme `python` de `socket.io` avec le framework `Django`.
 
 <br/>
-<br/>
+
 
 ## Prérequis
 
@@ -33,7 +33,6 @@ sudo apt install python3-pip
 
 
 <br/>
-<br/>
 
 
 ## Version de python
@@ -53,7 +52,6 @@ Python 3.8.10
 Je vous recommande d'avoir cette version ou une version supérieur à celle-ci.
 
 <br/>
-<br/>
 
 
 ## Configuration d'un environnement virtuel
@@ -61,7 +59,7 @@ Je vous recommande d'avoir cette version ou une version supérieur à celle-ci.
 Avant d'installer les modules, il faut créer un environnement virtuel. C'est dans ce dernier, qu'on va 
 installer les différents modules du serveur.
 
-<br/>
+
 
 ### Installation de virtualenv
 
@@ -77,7 +75,6 @@ Ensuite, dans le dossier du projet, créer un environement virtuel en tapant la 
 python3 -m venv env
 ```
 
-<br/>
 
 ### Activation de l'environnement
 Enfin, on active l'environement virtuel
@@ -88,7 +85,6 @@ source env/bin/activate
 
 Si tous va bien, on peut passer à l'installation des modules.
 
-<br/>
 <br/>
 
 
@@ -124,7 +120,6 @@ pip install -r requirements.txt
 ```
 
 <br/>
-<br/>
 
 ## Creation d'un projet Django
 On va maintenant créer un projet Django nommé `django_socketio` par exemple.
@@ -140,12 +135,10 @@ django-admin startapp socketio_app
 ```
 
 <br/>
-<br/>
 
 ## Configuration du projet
 On va placer les boûts de code qu'il faut dans certains fichiers de django.
 
-<br/>
 
 ### Configuration de l'URL
 1. Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
@@ -183,7 +176,6 @@ urlpatterns = [
 
 ```
 
-<br/>
 
 ### Configuration du serveur en socket.io
 On va maintenant mettre en place les fonctionnalités du serveur de socket.io.
@@ -241,7 +233,6 @@ server.serve_forever();
 
 ```
 
-<br/>
 
 ### Implémentation des exemples de fonctionnalités avec socket.io
 On va juste essayer d'implémenter un programme de chat. Remplacez donc tous le code contenu dans le fichier `django_socketio/socketio_app/views.py` par les lignes de code suivantes :
@@ -386,7 +377,6 @@ def disconnect(sid):
 
 ```
 
-<br/>
 
 ### Mise en place d'une interface WEB
 Dans le dossier `django_socketio/socketio_app/`, créez un dossier nommé `static`, ensuite, dans ce dernier, créer un fichier nommé `index.html`. Dans ce fichier, insérez les lignes de code suivantes :
@@ -494,7 +484,6 @@ Dans le dossier `django_socketio/socketio_app/`, créez un dossier nommé `stati
 ```
 
 <br/>
-<br/>
 
 ## Démarrage du serveur
 N'oublier pas de sauvegarder tous les fichiers sources. Il est temps de tester notre programme.
@@ -524,7 +513,6 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 
-<br/>
 <br/>
 
 ## Test
@@ -556,7 +544,6 @@ ALLOWED_HOSTS = ['192.168.100.31'];
 ```
 
 
-<br/>
 <br/>
 
 ## Système d'exploitation
