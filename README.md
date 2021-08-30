@@ -62,22 +62,7 @@ On va placer les boûts de code qu'il faut dans certains fichiers de django.
 <br/>
 
 ### Configuration de l'URL
-1. Dans le fichier `django_socketio/settings.py`, insérer la ligne suivante :
-
-```python
-# ...
-
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1'];
-
-# ...
-```
-
-C'est pour permettre l'accès de tous les ordinateurs connectés sur le même réseau
-que vous (`0.0.0.0`) et l'accès en localhost (`127.0.0.1`) au serveur de l'application.
-
-<br/>
-
-2. Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
+1. Dans le fichier `django_socketio/urls.py`, insérer la ligne suivante :
 
 ```python
 from django.conf.urls import url, include
@@ -98,7 +83,7 @@ urlpatterns = [
 
 <br/>
 
-3. Dans le dossier `django_socketio/socketio_app/`, créez le fichier `urls.py` et insérer s'y
+2. Dans le dossier `django_socketio/socketio_app/`, créez le fichier `urls.py` et insérer s'y
 le code suivant :
 
 ```python
