@@ -1,12 +1,15 @@
 # python-socket.io-django
 Python socket.io example with Django framework
 
+- French version is [here](https://github.com/mokira3d48/python-socket.io-django/tree/master/fr)
+
 <br/>
 
 ## Installation des modules
 Voici tous les modules dont on a besoin pour monter notre serveur socket.
 
 Contenu du fichier `requirements.txt` :
+
 ```
 asgiref==3.4.1
 bidict==0.21.2
@@ -210,8 +213,16 @@ from socketio_app.views import sio
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_socketio.settings');
 
-django_app = get_wsgi_application();
+django_app  = get_wsgi_application();
 application = socketio.WSGIApp(sio, django_app);
+
+####################################################################################
+
+from gevent import pywsgi
+from geventwebsocket.handler import WebSocketHandler
+
+server = pywsgi.WSGIServer(("", 8000), application, handler_class=WebSocketHandler);
+server.serve_forever();
 
 ```
 
@@ -492,4 +503,24 @@ Si tout va bien, vous verrez le message suivant affichez dans votre terminal.
 ```
 async_mode is set to `Gevent` !
 ```
+
+<br/>
+<br/>
+
+## Test
+Voici le lien pour accéder à l'interface web : [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+Pour que d'autre ordinateur puisse accéder à votre application, il faut qu'ils soient dans le même réseau que votre ordinateur. Ensuite, ils doivent utiliser votre adresse IP (souvent sous la forme `192.168.xxx.xxx`). Pour qu'on connaitre votre adresse IP :
+
+- sous linux :
+
+```
+sudo ifconfig
+```
+
+- sous windows :
+
+```
+ipconfig
+```
+
 
