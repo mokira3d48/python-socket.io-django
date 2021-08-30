@@ -235,9 +235,14 @@ server = pywsgi.WSGIServer(("", 8000), application, handler_class=WebSocketHandl
 server.serve_forever();
 
 ```
+ 
+<br/>
 
+## Implémentation des exemples de fonctionnalités avec socket.io
+On va mettre en place le programme serveur et un programme client.
 
-### Implémentation des exemples de fonctionnalités avec socket.io
+### Programme serveur
+
 On va juste essayer d'implémenter un programme de chat. Remplacez donc tous le code contenu dans le fichier `django_socketio/socketio_app/views.py` par les lignes de code suivantes :
 
 ```python
@@ -380,8 +385,8 @@ def disconnect(sid):
 
 ```
 
-
-### Mise en place d'une interface WEB
+### Programme client
+En effet, il s'agit de mettre en place une interface WEB. <br/>
 Dans le dossier `django_socketio/socketio_app/`, créez un dossier nommé `static`, ensuite, dans ce dernier, créer un fichier nommé `index.html`. Dans ce fichier, insérez les lignes de code suivantes :
 
 ```html
