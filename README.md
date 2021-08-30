@@ -1,9 +1,4 @@
 # python-socket.io-django
-
-[![Build Status][ico-actions]][link-actions]
-[![Software License][ico-license]](LICENSE.md)
-[![Total Downloads][ico-downloads]][link-downloads]
-
 `Python` `socket.io` example with `Django` framework.
 
 
