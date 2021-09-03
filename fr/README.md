@@ -246,7 +246,7 @@ On va juste essayer d'implémenter un programme de chat. Remplacez donc tous le 
 # définissez async_mode sur 'threading', 'eventlet', 'gevent' ou 'gevent_uwsgi' sur
 # forcer un autre mode, le meilleur mode est sélectionné automatiquement parmi ce qui est
 # installée
-async_mode = 'gevent';
+sync_mode = 'gevent';
 
 import os
 
@@ -269,7 +269,6 @@ def index(request):
 #    if thread is None:
 #        thread = sio.start_background_task(background_thread);
 
-    # on renvois une page WEB
     return HttpResponse(open(os.path.join(basedir, 'static/index.html')));
 
 
@@ -327,7 +326,10 @@ def leave(sid, message):
 
     # on se deconnecte du canal
     sio.leave_room(sid, message['room']);
-    sio.emit('my_response', {'data': users[sid] + ' left room: ' + message['room']}, room=sid);
+
+    # on informe tous ceux qui sont dans le canal, que celui-ci 
+    # a quitte le canal
+    sio.emit('my_response', {'data': users[sid] + ' left room: ' + message['room']}, room=message['room']);
 
 
 @sio.event
@@ -366,6 +368,9 @@ def connect(sid, environ):
     # on lui notifie qu'il s'est bien connecte
     sio.emit('my_response', {'data': 'Connected', 'count': len(users)}, room=sid);
 
+    # on notifie a tous le monde le nombre de personnes actuellement connectes
+    sio.emit('my_response', {'data': f'{len(users)} connected now!', 'count': len(users)});
+
 
 @sio.event
 def disconnect(sid):
@@ -376,8 +381,16 @@ def disconnect(sid):
 
     print(f"{sid}\t {users[sid]} disconnected");
 
+    # on notifie a tous le monde le nombre de personnes actuellement connectes
+    sio.emit('my_response', {'data': f"{users[sid]} is disconnected", 'count': len(users)});
+
     # on le supprime de la liste 
     del users[sid];
+
+    # on notifie a tous le monde le nombre de personnes actuellement connectes
+    sio.emit('my_response', {'data': f'{len(users)} connected', 'count': len(users)});
+
+
 
 
 ```

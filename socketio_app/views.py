@@ -81,7 +81,10 @@ def leave(sid, message):
 
     # on se deconnecte du canal
     sio.leave_room(sid, message['room']);
-    sio.emit('my_response', {'data': users[sid] + ' left room: ' + message['room']}, room=sid);
+
+    # on informe tous ceux qui sont dans le canal, que celui-ci 
+    # a quitte le canal
+    sio.emit('my_response', {'data': users[sid] + ' left room: ' + message['room']}, room=message['room']);
 
 
 @sio.event
@@ -120,6 +123,9 @@ def connect(sid, environ):
     # on lui notifie qu'il s'est bien connecte
     sio.emit('my_response', {'data': 'Connected', 'count': len(users)}, room=sid);
 
+    # on notifie a tous le monde le nombre de personnes actuellement connectes
+    sio.emit('my_response', {'data': f'{len(users)} connected now!', 'count': len(users)});
+
 
 @sio.event
 def disconnect(sid):
@@ -130,7 +136,13 @@ def disconnect(sid):
 
     print(f"{sid}\t {users[sid]} disconnected");
 
+    # on notifie a tous le monde le nombre de personnes actuellement connectes
+    sio.emit('my_response', {'data': f"{users[sid]} is disconnected", 'count': len(users)});
+
     # on le supprime de la liste 
     del users[sid];
+
+    # on notifie a tous le monde le nombre de personnes actuellement connectes
+    sio.emit('my_response', {'data': f'{len(users)} connected', 'count': len(users)});
 
 
