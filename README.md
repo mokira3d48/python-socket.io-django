@@ -1,5 +1,5 @@
 # python-socket.io-django
-`Python` `socket.io` example with `Django` framework.
+Raw socket.io integration in a django server.
 
 
 - French version is [here](https://github.com/mokira3d48/python-socket.io-django/tree/master/fr)
