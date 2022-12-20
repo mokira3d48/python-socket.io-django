@@ -1,4 +1,8 @@
 # python-socket.io-django
+![](https://img.shields.io/badge/Python-3.8.10-blue)
+![](https://img.shields.io/badge/Django-3.2.6-%2344B78B)
+![](https://img.shields.io/badge/socket.io-5.4.0-%23fff)
+
 Raw socket.io integration in a django server.
 
 
